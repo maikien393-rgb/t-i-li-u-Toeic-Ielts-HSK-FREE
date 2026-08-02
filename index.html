@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TàiLiệuTốt – Kho tài liệu Ngoại Ngữ miễn phí</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">📚</span>
+        <span class="logo-text">TàiLiệuTốt</span>
+      </a>
+      <div class="search-wrap">
+        <input type="text" id="searchInput" class="search-input" placeholder="Tìm tên tài liệu (IELTS, TOEIC, HSK)…" />
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="hero-eyebrow">Miễn phí · Đầy đủ · Cập nhật liên tục</p>
+      <h1 class="hero-title">
+        Kho Tài liệu<br />
+        <span class="hero-typed" id="typedText"></span>
+      </h1>
+      <p class="hero-desc">
+        Hàng trăm bộ tài liệu luyện thi IELTS, TOEIC và tiếng Trung HSK — tất cả hoàn toàn miễn phí.
+        Chỉ cần click xem sản phẩm trên Shopee để giúp chúng mình duy trì kho tài liệu nhé!
+      </p>
+      <a href="#documents" class="btn btn-primary hero-cta">Khám phá tài liệu ↓</a>
+    </div>
+    <div class="hero-blob"></div>
+  </section>
+
+  <!-- ===== DOCUMENTS GRID ===== -->
+  <section class="documents-section" id="documents">
+    <div class="container">
+      <h2 class="section-title">Tài liệu mới nhất</h2>
+      <p class="section-sub" id="resultCount"></p>
+      <div class="doc-grid" id="docGrid">
+        <!-- Cards are rendered by script.js -->
+      </div>
+      <p class="no-results hidden" id="noResults">Không tìm thấy tài liệu phù hợp.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-logo">📚 TàiLiệuTốt</span>
+      <p class="footer-copy">© 2025 TàiLiệuTốt. Kho tài liệu luyện thi ngoại ngữ miễn phí.</p>
+      <div class="footer-links">
+        <a href="#" title="Facebook">FB</a>
+        <a href="#" title="TikTok">TT</a>
+        <a href="#" title="YouTube">YT</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CONTENT LOCKER MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Đóng">✕</button>
+
+      <!-- Step 1: Yêu cầu click Shopee -->
+      <div class="modal-step" id="step1">
+        <div class="modal-icon">🛍️</div>
+        <h2 class="modal-title" id="modalTitle">Mở khóa tài liệu</h2>
+        <p class="modal-doc-name" id="modalDocName"></p>
+        <p class="modal-desc">
+          Để tải tài liệu, vui lòng ghé xem sản phẩm trên Shopee để ủng hộ Admin duy trì web nhé!<br />
+          <small>Bạn không cần mua — chỉ cần mở link là đủ 💙</small>
+        </p>
+        <a class="btn btn-shopee" id="shopeeBtn" href="#" target="_blank" rel="noopener">
+          <span>🛒 Xem sản phẩm trên Shopee</span>
+        </a>
+        <p class="modal-hint">Sau khi click, nút tải sẽ tự mở khóa sau vài giây.</p>
+        <button class="btn btn-drive locked" id="driveBtn" disabled>
+          <span class="lock-icon">🔒</span> Tải tài liệu (chưa mở khóa)
+        </button>
+      </div>
+
+      <!-- Step 2: Loading -->
+      <div class="modal-step hidden" id="step2">
+        <div class="loading-ring">
+          <div></div><div></div><div></div><div></div>
+        </div>
+        <p class="loading-text">Đang xác nhận… vui lòng đợi giây lát</p>
+      </div>
+
+      <!-- Step 3: Đã mở khóa -->
+      <div class="modal-step hidden" id="step3">
+        <div class="modal-icon success-icon">✅</div>
+        <h2 class="modal-title">Cảm ơn bạn!</h2>
+        <p class="modal-desc">Nút tải tài liệu đã sẵn sàng. Chúc bạn học tốt! 🎉</p>
+        <a class="btn btn-drive unlocked" id="driveBtnFinal" href="#" target="_blank" rel="noopener">
+          📥 Tải / Xem tài liệu ngay
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
