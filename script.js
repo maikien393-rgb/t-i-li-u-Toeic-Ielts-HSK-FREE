@@ -72,7 +72,7 @@ const documentData = [
     tag: "HSK",
     title: "Bộ Đề Thi Thử HSK 4, 5, 6",
     description: "Tổng hợp đề thi thật và thi thử các kỳ thi HSK cấp cao kèm đáp án.",
-    shopeeLink: "https://s.shopee.vn/link-cua-ban",
+    shopeeLink: "https://s.shopee.vn/6L4FNcKSfR",
     driveLink: "https://drive.google.com/link-cua-ban"
   }
 ];
