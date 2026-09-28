@@ -1,3 +1,7 @@
+/* ============================================
+   1. DỮ LIỆU TÀI LIỆU
+   ── Thêm link shopee và drive thật của bạn vào đây
+============================================= */
 const documentData = [
   {
     id: 1,
@@ -80,7 +84,7 @@ const documentData = [
     shopeeLink: "https://s.shopee.vn/80BYeyef0W",
     driveLink: "https://drive.google.com/drive/folders/1zcY0krZaWtb7LQM20bLE_PJzqFHaJJCa?usp=drive_link"
   },
-  { // <-- Missing brace added here
+  {
     id: 10,
     icon: "🇬🇧",
     tag: "4000 từ vựng trọng tâm",
@@ -90,3 +94,177 @@ const documentData = [
     driveLink: "https://drive.google.com/drive/folders/1zcY0krZaWtb7LQM20bLE_PJzqFHaJJCa?usp=drive_link"
   }
 ];
+
+/* ============================================
+   2. RENDER CARDS
+============================================= */
+function renderCards(data) {
+  const grid = document.getElementById('docGrid');
+  const countEl = document.getElementById('resultCount');
+  const noResults = document.getElementById('noResults');
+
+  grid.innerHTML = ''; 
+
+  if (data.length === 0) {
+    noResults.classList.remove('hidden');
+    countEl.textContent = '';
+    return;
+  }
+
+  noResults.classList.add('hidden');
+  countEl.textContent = `Hiển thị ${data.length} tài liệu`;
+
+  data.forEach((doc, index) => {
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    card.style.transitionDelay = `${index * 60}ms`;
+    card.innerHTML = `
+      <span class="card-icon">${doc.icon}</span>
+      <span class="card-tag">${doc.tag}</span>
+      <h3 class="card-title">${doc.title}</h3>
+      <p class="card-desc">${doc.description}</p>
+      <button class="btn btn-card" data-id="${doc.id}">
+        📖 Xem tài liệu
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.btn-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      const doc = documentData.find(d => d.id === id);
+      if (doc) openModal(doc);
+    });
+  });
+
+  observeCards();
+}
+
+/* ============================================
+   3. TÌM KIẾM REALTIME
+============================================= */
+document.getElementById('searchInput').addEventListener('input', function () {
+  const q = this.value.toLowerCase().trim();
+  const filtered = q
+    ? documentData.filter(d =>
+        d.title.toLowerCase().includes(q) ||
+        d.tag.toLowerCase().includes(q) ||
+        d.description.toLowerCase().includes(q)
+      )
+    : documentData;
+  renderCards(filtered);
+});
+
+/* ============================================
+   4. SCROLL REVEAL 
+============================================= */
+function observeCards() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll('.doc-card').forEach(card => observer.observe(card));
+}
+
+/* ============================================
+   5. TYPING EFFECT 
+============================================= */
+const typedEl = document.getElementById('typedText');
+const phrases = [
+  'Luyện thi IELTS 8.0+',
+  'Chinh phục TOEIC 900',
+  'Ôn thi HSK cấp tốc',
+  'Luôn cập nhật mới nhất!',
+];
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeLoop() {
+  const currentPhrase = phrases[phraseIndex];
+
+  if (!isDeleting) {
+    typedEl.textContent = currentPhrase.slice(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === currentPhrase.length) {
+      setTimeout(() => { isDeleting = true; typeLoop(); }, 1800);
+      return;
+    }
+  } else {
+    typedEl.textContent = currentPhrase.slice(0, charIndex - 1);
+    charIndex--;
+    if (charIndex === 0) {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+    }
+  }
+
+  const speed = isDeleting ? 45 : 80;
+  setTimeout(typeLoop, speed);
+}
+setTimeout(typeLoop, 800);
+
+/* ============================================
+   6. MODAL / CONTENT LOCKER
+============================================= */
+const overlay    = document.getElementById('modalOverlay');
+const btnClose   = document.getElementById('modalClose');
+const step1      = document.getElementById('step1');
+const step2      = document.getElementById('step2');
+const step3      = document.getElementById('step3');
+const shopeeBtn  = document.getElementById('shopeeBtn');
+const driveBtnFinal = document.getElementById('driveBtnFinal');
+const modalDocName  = document.getElementById('modalDocName');
+
+let shopeeClicked = false;
+
+function openModal(doc) {
+  shopeeClicked = false;
+  showStep(1);
+  modalDocName.textContent = doc.title;
+  shopeeBtn.href = doc.shopeeLink;
+  driveBtnFinal.href = doc.driveLink;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden'; 
+}
+
+function closeModal() {
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function showStep(n) {
+  step1.classList.toggle('hidden', n !== 1);
+  step2.classList.toggle('hidden', n !== 2);
+  step3.classList.toggle('hidden', n !== 3);
+}
+
+shopeeBtn.addEventListener('click', () => {
+  if (shopeeClicked) return; 
+  shopeeClicked = true;
+  showStep(2);
+  const delay = Math.floor(Math.random() * 2000) + 3000; 
+  setTimeout(() => {
+    showStep(3);
+  }, delay);
+});
+
+btnClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// Khởi chạy khi load
+renderCards(documentData);
