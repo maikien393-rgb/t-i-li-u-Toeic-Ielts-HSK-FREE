@@ -74,6 +74,23 @@ const documentData = [
     description: "Tổng hợp đề thi thật và thi thử các kỳ thi HSK cấp cao kèm đáp án.",
     shopeeLink: "https://s.shopee.vn/6L4FNcKSfR",
     driveLink: "https://drive.google.com/link-cua-ban"
+  },
+    {
+    id: 9,
+    icon: "🇬🇧",
+    tag: "Lấy gốc cô Mai Phuong",
+    title: "lộ trình chinh phục tiếng anh toàn diện",
+    description: "Trọn bộ file PDF + Audio kèm giải chi tiết từ .",
+    shopeeLink: "https://s.shopee.vn/80BYeyef0W",
+    driveLink: "https://drive.google.com/drive/folders/1zcY0krZaWtb7LQM20bLE_PJzqFHaJJCa?usp=drive_link"
+  },
+   id: 10,
+    icon: "🇬🇧",
+    tag: "4000 từ vựng trọng tâm",
+    title: "lộ trình chinh phục tiếng anh toàn diện",
+    description: "Trọn bộ file PDF + Audio kèm giải chi tiết từ .",
+    shopeeLink: "https://s.shopee.vn/80BYeyef0W",
+    driveLink: "https://drive.google.com/drive/folders/1zcY0krZaWtb7LQM20bLE_PJzqFHaJJCa?usp=drive_link"
   }
 ];
 
